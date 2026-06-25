@@ -1,0 +1,152 @@
+{
+  "common": {
+    "appName": "Mohmand Unity Group",
+    "loading": "Loading…",
+    "save": "Save changes",
+    "cancel": "Cancel",
+    "create": "Create",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "search": "Search",
+    "actions": "Actions",
+    "yes": "Yes",
+    "no": "No",
+    "back": "Back",
+    "signIn": "Sign in",
+    "signUp": "Register",
+    "signOut": "Sign out",
+    "language": "Language",
+    "english": "English",
+    "pashto": "پښتو"
+  },
+  "nav": {
+    "home": "Home",
+    "laws": "Laws",
+    "announcements": "Announcements",
+    "familyTree": "Family Tree",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "admin": "Admin"
+  },
+  "home": {
+    "heroTitle": "United Families, Shared Future",
+    "heroSubtitle": "A digital home for the Mohmand community — preserving our lineage, organising our contributions, and keeping every family connected.",
+    "explore": "Explore the platform",
+    "registerCta": "Join your family",
+    "missionTitle": "Our Mission",
+    "visionTitle": "Our Vision",
+    "objectivesTitle": "Our Objectives",
+    "statsTitle": "The community at a glance",
+    "statFamilies": "Families",
+    "statMembers": "Members",
+    "statContributions": "Collected this year",
+    "latestAnnouncements": "Latest announcements",
+    "contactTitle": "Get in touch"
+  },
+  "auth": {
+    "pendingTitle": "Awaiting approval",
+    "pendingBody": "Your account is awaiting administrator approval. You will be able to sign in once an administrator reviews your registration.",
+    "rejectedTitle": "Registration not approved",
+    "unauthorizedTitle": "Access denied",
+    "unauthorizedBody": "You do not have permission to view this page."
+  },
+  "members": {
+    "title": "Members",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "maritalStatus": "Marital status",
+    "single": "Single",
+    "married": "Married",
+    "widowed": "Widowed",
+    "divorced": "Divorced",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "occupation": "Occupation",
+    "dateOfBirth": "Date of birth"
+  },
+  "families": {
+    "title": "Families",
+    "name": "Family name",
+    "description": "Description",
+    "head": "Family head",
+    "memberCount": "Members"
+  },
+  "tree": {
+    "title": "Family Tree",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "reset": "Reset view",
+    "expandAll": "Expand all",
+    "collapseAll": "Collapse all",
+    "fullscreen": "Fullscreen",
+    "searchPlaceholder": "Search members…",
+    "selectFamily": "Select a family",
+    "spouse": "Spouse",
+    "empty": "No members to display yet."
+  },
+  "payments": {
+    "title": "Contributions",
+    "month": "Month",
+    "amountDue": "Due",
+    "amountPaid": "Paid",
+    "status": "Status",
+    "paid": "Paid",
+    "partial": "Partial",
+    "unpaid": "Unpaid",
+    "totalRequired": "Total required",
+    "totalPaid": "Total paid",
+    "remaining": "Remaining balance",
+    "recordPayment": "Record payment",
+    "marriedOnlyNote": "Only married members contribute.",
+    "year": "Solar year"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "totalFamilies": "Total families",
+    "totalMembers": "Total members",
+    "pendingApprovals": "Pending approvals",
+    "marriedMembers": "Married members",
+    "monthlyCollections": "Monthly collections",
+    "annualCollections": "Annual collections",
+    "outstanding": "Outstanding balances",
+    "compliance": "Payment compliance",
+    "collectionsTrend": "Collections trend",
+    "familyDistribution": "Family distribution"
+  },
+  "laws": {
+    "title": "Mohmand Group Laws",
+    "subtitle": "The bylaws that guide our community.",
+    "addLaw": "Add law",
+    "lawTitle": "Title",
+    "lawBody": "Text"
+  },
+  "announcements": {
+    "title": "Announcements",
+    "pinned": "Pinned",
+    "addAnnouncement": "New announcement",
+    "noneTitle": "No announcements yet",
+    "noneBody": "Check back soon for community updates."
+  },
+  "admin": {
+    "approvals": "Approvals",
+    "pendingUsers": "Pending users",
+    "approve": "Approve",
+    "reject": "Reject",
+    "reports": "Reports",
+    "logs": "Activity logs",
+    "settings": "Settings",
+    "homepage": "Homepage content",
+    "noPending": "No registrations are awaiting review."
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalidEmail": "Enter a valid email address",
+    "tooShort": "This value is too short",
+    "positiveNumber": "Enter a number greater than zero"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Mohmand Unity Group",
+  "short_name": "Mohmand Unity",
+  "description": "A bilingual community platform for the Mohmand family network.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#EFEDE3",
+  "theme_color": "#1E4D3B",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

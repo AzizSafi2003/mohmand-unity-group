@@ -1,0 +1,152 @@
+{
+  "common": {
+    "appName": "مهمند یووالی ګروپ",
+    "loading": "بارېږي…",
+    "save": "بدلونونه خوندي کړئ",
+    "cancel": "لغوه کول",
+    "create": "جوړول",
+    "edit": "سمول",
+    "delete": "ړنګول",
+    "confirm": "تایید",
+    "search": "لټون",
+    "actions": "کړنې",
+    "yes": "هو",
+    "no": "نه",
+    "back": "شاته",
+    "signIn": "ننوتل",
+    "signUp": "نوم لیکنه",
+    "signOut": "وتل",
+    "language": "ژبه",
+    "english": "English",
+    "pashto": "پښتو"
+  },
+  "nav": {
+    "home": "کور",
+    "laws": "قوانین",
+    "announcements": "اعلانونه",
+    "familyTree": "د کورنۍ ونه",
+    "dashboard": "ډشبورډ",
+    "profile": "پروفایل",
+    "admin": "مدیر"
+  },
+  "home": {
+    "heroTitle": "متحدې کورنۍ، ګډ راتلونکی",
+    "heroSubtitle": "د مهمند ټولنې لپاره یو ډیجیټل کور — زموږ د نسب ساتنه، د بسپنو تنظیمول، او د هرې کورنۍ سره د اړیکې ساتل.",
+    "explore": "پلیټفارم وپلټئ",
+    "registerCta": "خپلې کورنۍ سره یوځای شئ",
+    "missionTitle": "زموږ ماموریت",
+    "visionTitle": "زموږ لیدلوری",
+    "objectivesTitle": "زموږ موخې",
+    "statsTitle": "ټولنه په یوه نظر کې",
+    "statFamilies": "کورنۍ",
+    "statMembers": "غړي",
+    "statContributions": "سږکال راټول شوي",
+    "latestAnnouncements": "وروستي اعلانونه",
+    "contactTitle": "اړیکه ونیسئ"
+  },
+  "auth": {
+    "pendingTitle": "د تایید په تمه",
+    "pendingBody": "ستاسو حساب د مدیر د تایید په تمه دی. کله چې یو مدیر ستاسو نوم لیکنه وڅیړي، تاسو به وکولی شئ ننوځئ.",
+    "rejectedTitle": "نوم لیکنه ونه منل شوه",
+    "unauthorizedTitle": "لاسرسی رد شو",
+    "unauthorizedBody": "تاسو د دې پاڼې د کتلو اجازه نلرئ."
+  },
+  "members": {
+    "title": "غړي",
+    "firstName": "نوم",
+    "lastName": "تخلص",
+    "gender": "جنسیت",
+    "male": "نارینه",
+    "female": "ښځینه",
+    "maritalStatus": "د واده حالت",
+    "single": "مجرد",
+    "married": "واده شوی",
+    "widowed": "کونډ",
+    "divorced": "طلاق شوی",
+    "phone": "تلیفون",
+    "email": "بریښنالیک",
+    "address": "پته",
+    "occupation": "دنده",
+    "dateOfBirth": "د زیږون نېټه"
+  },
+  "families": {
+    "title": "کورنۍ",
+    "name": "د کورنۍ نوم",
+    "description": "تشریح",
+    "head": "د کورنۍ مشر",
+    "memberCount": "غړي"
+  },
+  "tree": {
+    "title": "د کورنۍ ونه",
+    "zoomIn": "لویول",
+    "zoomOut": "کوچنیول",
+    "reset": "بیا تنظیمول",
+    "expandAll": "ټول پرانیستل",
+    "collapseAll": "ټول بندول",
+    "fullscreen": "بشپړه پرده",
+    "searchPlaceholder": "غړي ولټوئ…",
+    "selectFamily": "یوه کورنۍ وټاکئ",
+    "spouse": "میرمن/خاوند",
+    "empty": "تر اوسه د ښودلو لپاره غړي نشته."
+  },
+  "payments": {
+    "title": "بسپنې",
+    "month": "میاشت",
+    "amountDue": "واجب",
+    "amountPaid": "ورکړل شوی",
+    "status": "حالت",
+    "paid": "ورکړل شوی",
+    "partial": "نیمګړی",
+    "unpaid": "نه دی ورکړل شوی",
+    "totalRequired": "ټول اړین",
+    "totalPaid": "ټول ورکړل شوی",
+    "remaining": "پاتې بیلانس",
+    "recordPayment": "تادیه ثبتول",
+    "marriedOnlyNote": "یوازې واده شوي غړي بسپنه ورکوي.",
+    "year": "لمریز کال"
+  },
+  "dashboard": {
+    "title": "ډشبورډ",
+    "totalFamilies": "ټولې کورنۍ",
+    "totalMembers": "ټول غړي",
+    "pendingApprovals": "د تایید په تمه",
+    "marriedMembers": "واده شوي غړي",
+    "monthlyCollections": "میاشتنۍ راټولونه",
+    "annualCollections": "کلنۍ راټولونه",
+    "outstanding": "پاتې بیلانسونه",
+    "compliance": "د تادیې پابندي",
+    "collectionsTrend": "د راټولونو روند",
+    "familyDistribution": "د کورنیو ویش"
+  },
+  "laws": {
+    "title": "د مهمند ګروپ قوانین",
+    "subtitle": "هغه مقررات چې زموږ ټولنې ته لارښوونه کوي.",
+    "addLaw": "قانون اضافه کول",
+    "lawTitle": "سرلیک",
+    "lawBody": "متن"
+  },
+  "announcements": {
+    "title": "اعلانونه",
+    "pinned": "نښلول شوی",
+    "addAnnouncement": "نوی اعلان",
+    "noneTitle": "تر اوسه اعلانونه نشته",
+    "noneBody": "د ټولنې د تازه معلوماتو لپاره ډېر ژر بیا راشئ."
+  },
+  "admin": {
+    "approvals": "تاییدونه",
+    "pendingUsers": "د تمه کاروونکي",
+    "approve": "تایید",
+    "reject": "رد",
+    "reports": "راپورونه",
+    "logs": "د فعالیت ثبتونه",
+    "settings": "تنظیمات",
+    "homepage": "د کور پاڼې محتوا",
+    "noPending": "هیڅ نوم لیکنه د کتنې په تمه نه ده."
+  },
+  "validation": {
+    "required": "دا ساحه اړینه ده",
+    "invalidEmail": "سم بریښنالیک دننه کړئ",
+    "tooShort": "دا ارزښت ډېر لنډ دی",
+    "positiveNumber": "له صفر څخه لوی شمیر دننه کړئ"
+  }
+}

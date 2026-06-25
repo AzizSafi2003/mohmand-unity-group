@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ----------------------------------------------------------------------------
+   Base
+---------------------------------------------------------------------------- */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-parchment text-ink antialiased;
+    font-feature-settings: "kern", "liga", "calt";
+    min-height: 100dvh;
+  }
+
+  /* Pashto / RTL: swap the body face and direction. The <html dir> attribute is
+     set in layout.tsx; here we make sure the Arabic-script font is used. */
+  html[lang="ps"] body {
+    @apply font-ps;
+    letter-spacing: 0;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display text-ink;
+    text-wrap: balance;
+  }
+  html[lang="ps"] :is(h1, h2, h3, h4) {
+    @apply font-ps;
+  }
+
+  /* Tabular figures for anything financial. */
+  .nums {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+
+  ::selection {
+    background: theme("colors.pine.DEFAULT");
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid theme("colors.brass.DEFAULT");
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Quiet, warm scrollbar. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: theme("colors.sand") transparent;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Components / shared utilities
+---------------------------------------------------------------------------- */
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-content px-5 sm:px-8;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-brass-dark;
+  }
+  html[lang="ps"] .eyebrow {
+    @apply tracking-normal;
+  }
+
+  /* Card surface used across dashboard, lists, forms. */
+  .surface-card {
+    @apply rounded-2xl border border-sand/80 bg-surface shadow-card;
+  }
+
+  /* The signature element: a kilim-inspired "lineage" band built from layered
+     CSS gradients — interlocking diamonds in pine + brass. Used as section
+     dividers and as a faint hero watermark. No images required. */
+  .kilim-rule {
+    height: 14px;
+    width: 100%;
+    background-image:
+      linear-gradient(135deg, theme("colors.pine.DEFAULT") 25%, transparent 25%),
+      linear-gradient(225deg, theme("colors.pine.DEFAULT") 25%, transparent 25%),
+      linear-gradient(45deg, theme("colors.brass.DEFAULT") 25%, transparent 25%),
+      linear-gradient(315deg, theme("colors.brass.DEFAULT") 25%, transparent 25%);
+    background-position: 7px 0, 7px 0, 0 0, 0 0;
+    background-size: 14px 14px;
+    background-repeat: repeat-x;
+    opacity: 0.9;
+  }
+
+  .kilim-watermark {
+    background-image:
+      linear-gradient(135deg, theme("colors.pine.DEFAULT") 25%, transparent 25%),
+      linear-gradient(225deg, theme("colors.pine.DEFAULT") 25%, transparent 25%),
+      linear-gradient(45deg, theme("colors.pine.DEFAULT") 25%, transparent 25%),
+      linear-gradient(315deg, theme("colors.pine.DEFAULT") 25%, transparent 25%);
+    background-position: 14px 0, 14px 0, 0 0, 0 0;
+    background-size: 28px 28px;
+  }
+
+  /* Link underline that grows from the start edge (direction-aware). */
+  .link-underline {
+    background-image: linear-gradient(theme("colors.brass.DEFAULT"), theme("colors.brass.DEFAULT"));
+    background-size: 0% 2px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s ease;
+  }
+  .link-underline:hover {
+    background-size: 100% 2px;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Motion preferences
+---------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
