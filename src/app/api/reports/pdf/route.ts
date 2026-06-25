@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { buildMemberReportPdf, type MemberReportPayload } from "@/lib/pdf/memberReport";
+import {
+  buildMemberReportPdf,
+  type MemberReportPayload,
+} from "@/lib/pdf/memberReport";
 
 // jsPDF needs the Node runtime (no DOM / edge limitations).
 export const runtime = "nodejs";
@@ -17,14 +20,21 @@ export const runtime = "nodejs";
 export async function POST(req: NextRequest) {
   try {
     const payload = (await req.json()) as MemberReportPayload;
-    if (!payload?.member || !payload?.summary || !Array.isArray(payload?.rows)) {
-      return NextResponse.json({ error: "Invalid report payload" }, { status: 400 });
+    if (
+      !payload?.member ||
+      !payload?.summary ||
+      !Array.isArray(payload?.rows)
+    ) {
+      return NextResponse.json(
+        { error: "Invalid report payload" },
+        { status: 400 },
+      );
     }
 
     const pdf = buildMemberReportPdf(payload);
     const filename = `${(payload.member.name || "member").replace(/[^a-z0-9]+/gi, "-")}-${payload.year}.pdf`;
 
-    return new NextResponse(pdf, {
+    return new NextResponse(new Uint8Array(pdf), {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
@@ -35,7 +45,7 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     return NextResponse.json(
       { error: err instanceof Error ? err.message : "Failed to generate PDF" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -6,10 +6,20 @@ import { useQuery, useMutation } from "convex/react";
 import toast from "react-hot-toast";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { api } from "@convex/_generated/api";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 import type { Doc } from "@convex/_generated/dataModel";
 import { AdminPageHeader } from "@/features/admin/components/AdminPageHeader";
 import { ConfirmDialog } from "@/features/admin/components/ConfirmDialog";
-import { Button, Modal, Field, Input, Textarea, Badge, Spinner, EmptyState } from "@/components/ui";
+import {
+  Button,
+  Modal,
+  Field,
+  Input,
+  Textarea,
+  Badge,
+  Spinner,
+  EmptyState,
+} from "@/components/ui";
 import { localized } from "@/lib/utils";
 import { useUiStore } from "@/store/uiStore";
 
@@ -18,7 +28,9 @@ type Law = Doc<"laws">;
 export default function AdminLawsPage() {
   const { t } = useTranslation();
   const locale = useUiStore((s) => s.locale);
-  const laws = useQuery(api.laws.listAll, {});
+  const { user } = useCurrentUser();
+  const isAdmin = user?.role === "admin" && user?.status === "approved";
+  const laws = useQuery(api.laws.listAll, isAdmin ? {} : "skip");
   const remove = useMutation(api.laws.remove);
 
   const [editing, setEditing] = useState<Law | null>(null);
@@ -42,26 +54,50 @@ export default function AdminLawsPage() {
           <Spinner />
         </div>
       ) : laws.length === 0 ? (
-        <EmptyState title={t("laws.title")} action={<Button onClick={() => setCreating(true)}>{t("laws.addLaw")}</Button>} />
+        <EmptyState
+          title={t("laws.title")}
+          action={
+            <Button onClick={() => setCreating(true)}>
+              {t("laws.addLaw")}
+            </Button>
+          }
+        />
       ) : (
         <ol className="space-y-3">
           {laws.map((law, i) => (
-            <li key={law._id} className="surface-card flex items-start gap-4 p-4">
+            <li
+              key={law._id}
+              className="surface-card flex items-start gap-4 p-4"
+            >
               <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-pine-100 text-sm font-semibold text-pine">
                 {i + 1}
               </span>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
-                  <h3 className="font-semibold text-ink">{localized(law, "title", locale)}</h3>
+                  <h3 className="font-semibold text-ink">
+                    {localized(law, "title", locale)}
+                  </h3>
                   {!law.isActive && <Badge tone="neutral">hidden</Badge>}
                 </div>
-                <p className="mt-1 line-clamp-2 text-sm text-ink-faint">{localized(law, "body", locale)}</p>
+                <p className="mt-1 line-clamp-2 text-sm text-ink-faint">
+                  {localized(law, "body", locale)}
+                </p>
               </div>
               <div className="flex shrink-0 gap-1.5">
-                <Button size="icon" variant="ghost" onClick={() => setEditing(law)} aria-label={t("common.edit")}>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => setEditing(law)}
+                  aria-label={t("common.edit")}
+                >
                   <Pencil className="h-4 w-4" />
                 </Button>
-                <Button size="icon" variant="ghost" onClick={() => setDeleting(law)} aria-label={t("common.delete")}>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => setDeleting(law)}
+                  aria-label={t("common.delete")}
+                >
                   <Trash2 className="h-4 w-4 text-danger" />
                 </Button>
               </div>
@@ -70,10 +106,20 @@ export default function AdminLawsPage() {
         </ol>
       )}
 
-      <Modal open={creating} onClose={() => setCreating(false)} title={t("laws.addLaw")} size="lg">
+      <Modal
+        open={creating}
+        onClose={() => setCreating(false)}
+        title={t("laws.addLaw")}
+        size="lg"
+      >
         <LawForm onDone={() => setCreating(false)} />
       </Modal>
-      <Modal open={editing !== null} onClose={() => setEditing(null)} title={t("common.edit")} size="lg">
+      <Modal
+        open={editing !== null}
+        onClose={() => setEditing(null)}
+        title={t("common.edit")}
+        size="lg"
+      >
         {editing && <LawForm law={editing} onDone={() => setEditing(null)} />}
       </Modal>
 
@@ -128,7 +174,12 @@ function LawForm({ law, onDone }: { law?: Law; onDone: () => void }) {
           },
         });
       } else {
-        await create({ title, titlePs: titlePs || undefined, body, bodyPs: bodyPs || undefined });
+        await create({
+          title,
+          titlePs: titlePs || undefined,
+          body,
+          bodyPs: bodyPs || undefined,
+        });
       }
       toast.success(t("common.save"));
       onDone();
@@ -146,14 +197,22 @@ function LawForm({ law, onDone }: { law?: Law; onDone: () => void }) {
           <Input value={title} onChange={(e) => setTitle(e.target.value)} />
         </Field>
         <Field label={`${t("laws.lawTitle")} (پښتو)`}>
-          <Input dir="rtl" value={titlePs} onChange={(e) => setTitlePs(e.target.value)} />
+          <Input
+            dir="rtl"
+            value={titlePs}
+            onChange={(e) => setTitlePs(e.target.value)}
+          />
         </Field>
       </div>
       <Field label={t("laws.lawBody")} required>
         <Textarea value={body} onChange={(e) => setBody(e.target.value)} />
       </Field>
       <Field label={`${t("laws.lawBody")} (پښتو)`}>
-        <Textarea dir="rtl" value={bodyPs} onChange={(e) => setBodyPs(e.target.value)} />
+        <Textarea
+          dir="rtl"
+          value={bodyPs}
+          onChange={(e) => setBodyPs(e.target.value)}
+        />
       </Field>
       <label className="flex items-center gap-2 text-sm text-ink-soft">
         <input

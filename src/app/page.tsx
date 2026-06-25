@@ -70,6 +70,10 @@ export default function HomePage() {
               <h1 className="text-[clamp(2.5rem,6vw,4.5rem)] font-semibold leading-[1.04] tracking-tight text-ink">
                 {field("hero", "title", t("home.heroTitle"))}
               </h1>
+              <h1>
+                {field("hero", "title", t("home.greetings"))}
+              </h1>
+
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
                 {field("hero", "subtitle", t("home.heroSubtitle"))}
               </p>

@@ -6,14 +6,29 @@ import { useQuery, useMutation } from "convex/react";
 import toast from "react-hot-toast";
 import { Check, X } from "lucide-react";
 import { api } from "@convex/_generated/api";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 import type { Id } from "@convex/_generated/dataModel";
 import { AdminPageHeader } from "@/features/admin/components/AdminPageHeader";
-import { Button, Modal, Input, Field, Badge, Spinner, EmptyState } from "@/components/ui";
+import {
+  Button,
+  Modal,
+  Input,
+  Field,
+  Badge,
+  Spinner,
+  EmptyState,
+} from "@/components/ui";
 import { formatDateTime } from "@/lib/utils";
 
 export default function ApprovalsPage() {
   const { t } = useTranslation();
-  const pending = useQuery(api.users.listByStatus, { status: "pending" });
+  const { user } = useCurrentUser();
+  const isAdmin = user?.role === "admin" && user?.status === "approved";
+
+  const pending = useQuery(
+    api.users.listByStatus,
+    isAdmin ? { status: "pending" } : "skip",
+  );
   const approve = useMutation(api.users.approveUser);
   const reject = useMutation(api.users.rejectUser);
 
@@ -47,7 +62,10 @@ export default function ApprovalsPage() {
 
   return (
     <>
-      <AdminPageHeader title={t("admin.approvals")} description={t("admin.pendingUsers")} />
+      <AdminPageHeader
+        title={t("admin.approvals")}
+        description={t("admin.pendingUsers")}
+      />
 
       {pending === undefined ? (
         <div className="grid h-40 place-items-center">
@@ -60,15 +78,26 @@ export default function ApprovalsPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-sand bg-parchment/60 text-xs uppercase tracking-wide text-ink-faint">
-                <th className="px-4 py-3 text-start font-semibold">{t("members.email")}</th>
-                <th className="hidden px-4 py-3 text-start font-semibold sm:table-cell">{t("members.firstName")}</th>
-                <th className="hidden px-4 py-3 text-start font-semibold md:table-cell">Requested</th>
-                <th className="px-4 py-3 text-end font-semibold">{t("common.actions")}</th>
+                <th className="px-4 py-3 text-start font-semibold">
+                  {t("members.email")}
+                </th>
+                <th className="hidden px-4 py-3 text-start font-semibold sm:table-cell">
+                  {t("members.firstName")}
+                </th>
+                <th className="hidden px-4 py-3 text-start font-semibold md:table-cell">
+                  Requested
+                </th>
+                <th className="px-4 py-3 text-end font-semibold">
+                  {t("common.actions")}
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-sand/70">
               {pending.map((u) => (
-                <tr key={u._id} className="transition-colors hover:bg-parchment/40">
+                <tr
+                  key={u._id}
+                  className="transition-colors hover:bg-parchment/40"
+                >
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
                       <span className="font-medium text-ink">{u.email}</span>
@@ -83,11 +112,19 @@ export default function ApprovalsPage() {
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex justify-end gap-2">
-                      <Button size="sm" onClick={() => onApprove(u._id)} loading={busyId === u._id}>
+                      <Button
+                        size="sm"
+                        onClick={() => onApprove(u._id)}
+                        loading={busyId === u._id}
+                      >
                         <Check className="h-4 w-4" />
                         {t("admin.approve")}
                       </Button>
-                      <Button size="sm" variant="outline" onClick={() => setRejecting(u._id)}>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => setRejecting(u._id)}
+                      >
                         <X className="h-4 w-4" />
                         {t("admin.reject")}
                       </Button>
@@ -111,7 +148,11 @@ export default function ApprovalsPage() {
       >
         <div className="space-y-4">
           <Field label="Reason" hint="Optional — shown to the applicant">
-            <Input value={reason} onChange={(e) => setReason(e.target.value)} autoFocus />
+            <Input
+              value={reason}
+              onChange={(e) => setReason(e.target.value)}
+              autoFocus
+            />
           </Field>
           <div className="flex justify-end gap-2">
             <Button

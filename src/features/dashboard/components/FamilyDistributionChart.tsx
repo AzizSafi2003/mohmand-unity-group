@@ -17,31 +17,62 @@ interface DistRow {
   members: number;
 }
 
-const PALETTE = ["#1E4D3B", "#3E7E63", "#B8893B", "#A6573C", "#102E23", "#C9A24B"];
+const PALETTE = [
+  "#1E4D3B",
+  "#3E7E63",
+  "#B8893B",
+  "#A6573C",
+  "#102E23",
+  "#C9A24B",
+];
 
 /** Horizontal bar chart of active members per family. */
 export function FamilyDistributionChart({ data }: { data: DistRow[] }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const alignClass = i18n.language === "ps" ? "text-end" : "text-start";
 
   return (
     <div className="surface-card p-5">
-      <h3 className="mb-4 font-display text-lg text-ink">{t("dashboard.familyDistribution")}</h3>
+      <h3 className={`mb-4 font-display text-lg text-ink ${alignClass}`}>
+        {t("dashboard.familyDistribution")}
+      </h3>
       <div className="h-72 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={data}
             layout="vertical"
-            margin={{ top: 4, right: 16, left: 8, bottom: 0 }}
+            margin={{
+              top: 4,
+              right: i18n.language === "ps" ? 16 : 8,
+              left: i18n.language === "ps" ? 8 : 16,
+              bottom: 0,
+            }}
           >
-            <CartesianGrid strokeDasharray="3 3" stroke="#E4E0D2" horizontal={false} />
-            <XAxis type="number" tick={{ fontSize: 11, fill: "#6B6557" }} tickLine={false} axisLine={{ stroke: "#E4E0D2" }} allowDecimals={false} />
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="#E4E0D2"
+              horizontal={false}
+            />
+            <XAxis
+              type="number"
+              tick={{ fontSize: 11, fill: "#6B6557" }}
+              tickLine={false}
+              axisLine={{ stroke: "#E4E0D2" }}
+              allowDecimals={false}
+            />
             <YAxis
               type="category"
               dataKey="family"
-              tick={{ fontSize: 11, fill: "#3A352B" }}
+              orientation={i18n.language === "ps" ? "right" : "left"}
+              tick={{
+                fontSize: 11,
+                fill: "#3A352B",
+                textAnchor: i18n.language === "ps" ? "start" : "end",
+              }}
               tickLine={false}
               axisLine={false}
-              width={120}
+              width={180}
+              tickMargin={16}
             />
             <Tooltip
               cursor={{ fill: "rgba(30,77,59,0.06)" }}

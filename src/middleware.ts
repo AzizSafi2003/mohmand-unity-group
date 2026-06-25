@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
  * ----------------
  * NOTE ON NAMING: the master brief refers to this file as `proxy.ts`. Next.js +
  * Clerk's actual convention is `middleware.ts`, which is what the framework
- * loads, so we use that name. The behaviour is what the brief describes.
+ * loads, so we use that name. The behavior is what the brief describes.
  *
  * Defense in depth (three layers):
  *   1. This middleware  — coarse gate: signed-out users can't reach app routes;

@@ -24,17 +24,30 @@ import { RequireAdmin } from "@/components/shared/Guards";
 import { Logo } from "@/components/shared/Logo";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { ROUTES } from "@/lib/constants";
-import { cn } from "@/lib/utils";
+import { cn, isRtl } from "@/lib/utils";
 import { useUiStore } from "@/store/uiStore";
 
 const NAV = [
-  { href: ROUTES.admin.root, key: "dashboard.title", icon: LayoutDashboard, exact: true },
+  {
+    href: ROUTES.admin.root,
+    key: "dashboard.title",
+    icon: LayoutDashboard,
+    exact: true,
+  },
   { href: ROUTES.admin.families, key: "families.title", icon: Users2 },
   { href: ROUTES.admin.members, key: "members.title", icon: UserPlus },
-  { href: ROUTES.admin.approvals, key: "admin.approvals", icon: CircleCheckBig },
+  {
+    href: ROUTES.admin.approvals,
+    key: "admin.approvals",
+    icon: CircleCheckBig,
+  },
   { href: ROUTES.admin.contributions, key: "payments.title", icon: Wallet },
   { href: ROUTES.admin.laws, key: "laws.title", icon: Scale },
-  { href: ROUTES.admin.announcements, key: "announcements.title", icon: Megaphone },
+  {
+    href: ROUTES.admin.announcements,
+    key: "announcements.title",
+    icon: Megaphone,
+  },
   { href: ROUTES.admin.homepage, key: "admin.homepage", icon: Home },
   { href: ROUTES.admin.reports, key: "admin.reports", icon: FileText },
   { href: ROUTES.admin.logs, key: "admin.logs", icon: Activity },
@@ -55,16 +68,28 @@ function AdminShell({ children }: { children: ReactNode }) {
   const sidebarOpen = useUiStore((s) => s.sidebarOpen);
   const setSidebarOpen = useUiStore((s) => s.setSidebarOpen);
 
+  const locale = useUiStore((s) => s.locale);
+  const isRtlLocale = isRtl(locale);
   const isActive = (href: string, exact?: boolean) =>
-    exact ? pathname === href : pathname === href || pathname.startsWith(`${href}/`);
+    exact
+      ? pathname === href
+      : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <div className="flex min-h-screen bg-parchment">
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 z-40 w-64 shrink-0 border-e border-sand bg-surface transition-transform lg:static lg:translate-x-0",
-          sidebarOpen ? "translate-x-0" : "-translate-x-full rtl:translate-x-full"
+          "fixed inset-y-0 z-40 w-56 shrink-0 border-e border-sand bg-surface transition-transform lg:static lg:translate-x-0 lg:order-first",
+          isRtlLocale
+            ? "right-0 left-auto border-e-0 border-s lg:order-last"
+            : "left-0 right-auto",
+          // Translate: closed moves off-screen in the correct direction per locale
+          sidebarOpen
+            ? "translate-x-0"
+            : isRtlLocale
+              ? "translate-x-full"
+              : "-translate-x-full",
         )}
       >
         <div className="flex h-16 items-center justify-between border-b border-sand px-4">
@@ -89,7 +114,7 @@ function AdminShell({ children }: { children: ReactNode }) {
                 "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
                 isActive(item.href, "exact" in item ? item.exact : false)
                   ? "bg-pine text-surface shadow-sm"
-                  : "text-ink-soft hover:bg-parchment-deep hover:text-ink"
+                  : "text-ink-soft hover:bg-parchment-deep hover:text-ink",
               )}
             >
               <item.icon className="h-4.5 w-4.5 shrink-0" />
@@ -117,10 +142,15 @@ function AdminShell({ children }: { children: ReactNode }) {
           >
             <Menu className="h-5 w-5" />
           </button>
-          <span className="hidden font-display text-lg text-ink lg:block">{t("nav.admin")}</span>
+          <span className="hidden font-display text-lg text-ink lg:block">
+            {t("nav.admin")}
+          </span>
           <div className="ms-auto flex items-center gap-3">
             <LanguageSwitcher />
-            <Link href={ROUTES.home} className="text-sm font-medium text-ink-soft hover:text-pine">
+            <Link
+              href={ROUTES.home}
+              className="text-sm font-medium text-ink-soft hover:text-pine"
+            >
               {t("nav.home")}
             </Link>
             <UserButton afterSignOutUrl={ROUTES.home} />

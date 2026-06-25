@@ -6,6 +6,7 @@ import { useQuery, useMutation } from "convex/react";
 import toast from "react-hot-toast";
 import { Plus } from "lucide-react";
 import { api } from "@convex/_generated/api";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { AdminPageHeader } from "@/features/admin/components/AdminPageHeader";
 import { ConfirmDialog } from "@/features/admin/components/ConfirmDialog";
 import { FamiliesTable, FamilyForm, type FamilyDoc } from "@/features/families";
@@ -13,8 +14,14 @@ import { Button, Modal, Spinner, EmptyState } from "@/components/ui";
 
 export default function AdminFamiliesPage() {
   const { t } = useTranslation();
+  const { user } = useCurrentUser();
+  const isAdmin = user?.role === "admin" && user?.status === "approved";
+
   const families = useQuery(api.families.list, { includeInactive: true });
-  const distribution = useQuery(api.dashboard.familyDistribution, {});
+  const distribution = useQuery(
+    api.dashboard.familyDistribution,
+    isAdmin ? {} : "skip",
+  );
   const remove = useMutation(api.families.remove);
 
   const [editing, setEditing] = useState<FamilyDoc | null>(null);
@@ -49,7 +56,11 @@ export default function AdminFamiliesPage() {
       ) : families.length === 0 ? (
         <EmptyState
           title={t("families.title")}
-          action={<Button onClick={() => setCreating(true)}>{t("common.create")}</Button>}
+          action={
+            <Button onClick={() => setCreating(true)}>
+              {t("common.create")}
+            </Button>
+          }
         />
       ) : (
         <FamiliesTable
@@ -60,12 +71,26 @@ export default function AdminFamiliesPage() {
         />
       )}
 
-      <Modal open={creating} onClose={() => setCreating(false)} title={t("common.create")}>
+      <Modal
+        open={creating}
+        onClose={() => setCreating(false)}
+        title={t("common.create")}
+      >
         <FamilyForm mode="create" onDone={() => setCreating(false)} />
       </Modal>
 
-      <Modal open={editing !== null} onClose={() => setEditing(null)} title={t("common.edit")}>
-        {editing && <FamilyForm mode="edit" family={editing} onDone={() => setEditing(null)} />}
+      <Modal
+        open={editing !== null}
+        onClose={() => setEditing(null)}
+        title={t("common.edit")}
+      >
+        {editing && (
+          <FamilyForm
+            mode="edit"
+            family={editing}
+            onDone={() => setEditing(null)}
+          />
+        )}
       </Modal>
 
       <ConfirmDialog
