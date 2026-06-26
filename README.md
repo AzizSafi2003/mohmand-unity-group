@@ -9,8 +9,9 @@ dashboard — all behind role‑based access control (visitor / member / admin)
 with right‑to‑left support throughout.
 
 Built with **Next.js (App Router) + React 19 + TypeScript**, **Convex** (database
-+ serverless functions), and **Clerk** (authentication), styled with Tailwind in
-a custom Pashtun‑heritage design system.
+
+- serverless functions), and **Clerk** (authentication), styled with Tailwind in
+  a custom Pashtun‑heritage design system.
 
 ---
 
@@ -33,18 +34,18 @@ still needs manual verification lives in
 
 ## Tech stack
 
-| Layer            | Choice                                                            |
-| ---------------- | ----------------------------------------------------------------- |
-| Framework        | Next.js 15 (App Router), React 19, TypeScript (strict)            |
-| Database + API   | Convex (reactive queries, mutations, HTTP actions, file storage)  |
-| Auth             | Clerk (`@clerk/nextjs`), JWT‑bridged to Convex                    |
-| State            | Zustand (UI + family‑tree view state)                             |
-| Styling          | Tailwind CSS, custom tokens, Framer Motion, Lenis smooth‑scroll   |
-| i18n             | `react-i18next` (en / ps) with RTL                                |
-| Charts           | Recharts                                                          |
-| PDF              | jsPDF + jspdf‑autotable (Node API route)                          |
-| Notifications    | react‑hot‑toast                                                   |
-| Webhooks         | Svix (Clerk → Convex)                                             |
+| Layer          | Choice                                                           |
+| -------------- | ---------------------------------------------------------------- |
+| Framework      | Next.js 15 (App Router), React 19, TypeScript (strict)           |
+| Database + API | Convex (reactive queries, mutations, HTTP actions, file storage) |
+| Auth           | Clerk (`@clerk/nextjs`), JWT‑bridged to Convex                   |
+| State          | Zustand (UI + family‑tree view state)                            |
+| Styling        | Tailwind CSS, custom tokens, Framer Motion, Lenis smooth‑scroll  |
+| i18n           | `react-i18next` (en / ps) with RTL                               |
+| Charts         | Recharts                                                         |
+| PDF            | jsPDF + jspdf‑autotable (Node API route)                         |
+| Notifications  | react‑hot‑toast                                                  |
+| Webhooks       | Svix (Clerk → Convex)                                            |
 
 ---
 
@@ -66,7 +67,12 @@ cp .env.example .env.local
 
 # 4. Run the web app (in a second terminal)
 npm run dev
+
+# 5. Build for production
+npm run build
 ```
+
+The build process now regenerates Convex bindings automatically before compiling.
 
 Open <http://localhost:3000>. The first time you sign up with the email set in
 `BOOTSTRAP_ADMIN_EMAIL`, that account is automatically promoted to an approved
@@ -81,23 +87,25 @@ JWT template and webhook are what make auth and approvals actually work.
 
 ## Project structure
 
-```
+````
+
 .
-├─ convex/                 # Backend: schema + all server functions (the source of truth)
-│  ├─ schema.ts            # 13 tables, fully indexed
-│  ├─ lib/auth.ts          # requireUser / requireApproved / requireAdmin + activity logging
-│  ├─ http.ts              # Svix-verified Clerk webhook (/clerk-webhook)
-│  └─ *.ts                 # families, members, relationships, contributions, dashboard, …
+├─ convex/ # Backend: schema + all server functions (the source of truth)
+│ ├─ schema.ts # 13 tables, fully indexed
+│ ├─ lib/auth.ts # requireUser / requireApproved / requireAdmin + activity logging
+│ ├─ http.ts # Svix-verified Clerk webhook (/clerk-webhook)
+│ └─ _.ts # families, members, relationships, contributions, dashboard, …
 ├─ src/
-│  ├─ app/                 # Routes (public, member, /admin/*, /api/*)
-│  ├─ components/          # ui/ primitives · layout/ · shared/
-│  ├─ features/            # feature modules: family-tree, payments, members, families, dashboard, admin
-│  ├─ lib/                 # afghan-calendar, financial, i18n, utils, constants, pdf
-│  ├─ providers/           # Convex, Clerk, i18n, Lenis, toast
-│  ├─ store/               # Zustand stores
-│  └─ middleware.ts        # Clerk edge middleware (coarse route protection)
-├─ docs/                   # ← all guides live here
-└─ public/                 # favicon, manifest, images
+│ ├─ app/ # Routes (public, member, /admin/_, /api/\*)
+│ ├─ components/ # ui/ primitives · layout/ · shared/
+│ ├─ features/ # feature modules: family-tree, payments, members, families, dashboard, admin
+│ ├─ lib/ # afghan-calendar, financial, i18n, utils, constants, pdf
+│ ├─ providers/ # Convex, Clerk, i18n, Lenis, toast
+│ ├─ store/ # Zustand stores
+│ └─ middleware.ts # Clerk edge middleware (coarse route protection)
+├─ docs/ # ← all guides live here
+└─ public/ # favicon, manifest, images
+
 ```
 
 Architecture rationale and conventions: [`docs/PROJECT_ARCHITECTURE.md`](docs/PROJECT_ARCHITECTURE.md).
@@ -139,3 +147,5 @@ Architecture rationale and conventions: [`docs/PROJECT_ARCHITECTURE.md`](docs/PR
 Provided to the commissioning owner for their use. No third‑party logos or
 copyrighted assets are bundled; the brand mark, palette, and all UI were
 authored for this project.
+```
+````

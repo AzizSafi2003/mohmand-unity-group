@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:convex": "convex dev",
+    "prebuild": "npx convex codegen --typecheck disable",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
